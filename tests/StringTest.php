@@ -16,3 +16,11 @@ it('can convert string to snake case', function () {
     $this->assertEquals('foo_bar', Str::snake('fooBar'));
     $this->assertEquals('foo_bar', Str::snake('fooBar', '_'));
 });
+
+it('can convert string to lower case', function () {
+    $this->assertEquals('foo bar baz', Str::lower('FOO BAR BAZ'));
+});
+
+it('can replace string', function () {
+    $this->assertEquals('bar bar baz', Str::replace('foo', 'bar', 'foo bar baz'));
+});
