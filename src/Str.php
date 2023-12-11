@@ -96,6 +96,14 @@ class Str
         return $value === static::studly($value);
     }
 
+    /**
+     * Generate a more truly "random" alpha-numeric string.
+     *
+     * @param  int  $length
+     * @return string
+     *
+     * @throws \Exception
+     */
     public static function random($length = 16)
     {
         $string = '';
@@ -111,11 +119,27 @@ class Str
         return $string;
     }
 
+    /**
+     * Generate a more truly "random" alpha-numeric string of ASCII characters.
+     *
+     * @param  int  $length
+     * @return string
+     *
+     * @throws \Exception
+     */
     public static function randomAscii($length = 16)
     {
         return static::substr(str_replace(['/', '+', '='], '', base64_encode(random_bytes($length))), 0, $length);
     }
 
+    /**
+     * Generate a more truly "random" numeric string.
+     *
+     * @param  int  $length
+     * @return string
+     *
+     * @throws \Exception
+     */
     public static function randomNumeric($length = 16)
     {
         $string = '';
@@ -131,6 +155,14 @@ class Str
         return static::substr($string, 0, $length);
     }
 
+    /**
+     * Generate a more truly "random" alpha-numeric string.
+     *
+     * @param  int  $length
+     * @return string
+     *
+     * @throws \Exception
+     */
     public static function randomAlphanumeric($length = 16)
     {
         $string = '';
@@ -146,6 +178,15 @@ class Str
         return static::substr($string, 0, $length);
     }
 
+    /**
+     * Generate a more truly "random" string.
+     *
+     * @param  int  $length
+     * @param  string|null  $characters
+     * @return string
+     *
+     * @throws \Exception
+     */
     public static function randomString($length = 16, $characters = null)
     {
         $string = '';

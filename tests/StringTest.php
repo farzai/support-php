@@ -71,3 +71,19 @@ it('can check if string contains given value', function () {
     expect(Str::contains('foo bar baz', 'bar'))->toBeTrue();
     expect(Str::contains('foo bar baz', 'qux'))->toBeFalse();
 });
+
+it('can random alphanumeric', function () {
+    expect(Str::randomAlphanumeric(10))->toHaveLength(10);
+});
+
+it('can random string', function () {
+    expect(Str::randomString(10))->toHaveLength(10);
+});
+
+it('can random string with numeric', function () {
+    expect(Str::randomStringWithNumeric(10))->toHaveLength(10);
+});
+
+it('can random string with special characters', function () {
+    expect(Str::randomStringWithSpecialCharacter(10))->toHaveLength(10);
+});
