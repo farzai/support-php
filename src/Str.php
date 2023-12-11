@@ -37,4 +37,142 @@ class Str
     {
         return str_replace($search, $replace, $subject);
     }
+
+    public static function startsWith($haystack, $needles)
+    {
+        foreach ((array) $needles as $needle) {
+            if ($needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static function endsWith($haystack, $needles)
+    {
+        foreach ((array) $needles as $needle) {
+            if ((string) $needle === static::substr($haystack, -static::length($needle))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static function length($value)
+    {
+        return mb_strlen($value);
+    }
+
+    public static function substr($string, $start, $length = null)
+    {
+        return mb_substr($string, $start, $length, 'UTF-8');
+    }
+
+    public static function contains($haystack, $needles)
+    {
+        foreach ((array) $needles as $needle) {
+            if ($needle !== '' && mb_strpos($haystack, $needle) !== false) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static function isSnakeCase($value)
+    {
+        return $value === static::snake($value);
+    }
+
+    public static function isCamelCase($value)
+    {
+        return $value === static::camel($value);
+    }
+
+    public static function isStudlyCase($value)
+    {
+        return $value === static::studly($value);
+    }
+
+    public static function random($length = 16)
+    {
+        $string = '';
+
+        while (($len = static::length($string)) < $length) {
+            $size = $length - $len;
+
+            $bytes = random_bytes($size);
+
+            $string .= substr(str_replace(['/', '+', '='], '', base64_encode($bytes)), 0, $size);
+        }
+
+        return $string;
+    }
+
+    public static function randomBytes($length = 16)
+    {
+        return random_bytes($length);
+    }
+
+    public static function randomAscii($length = 16)
+    {
+        return static::substr(str_replace(['/', '+', '='], '', base64_encode(random_bytes($length))), 0, $length);
+    }
+
+    public static function randomNumeric($length = 16)
+    {
+        $string = '';
+
+        while (($len = static::length($string)) < $length) {
+            $size = $length - $len;
+
+            $bytes = random_bytes($size);
+
+            $string .= preg_replace('/[^0-9]/', '', base64_encode($bytes));
+        }
+
+        return static::substr($string, 0, $length);
+    }
+
+    public static function randomAlphanumeric($length = 16)
+    {
+        $string = '';
+
+        while (($len = static::length($string)) < $length) {
+            $size = $length - $len;
+
+            $bytes = random_bytes($size);
+
+            $string .= preg_replace('/[^A-Za-z0-9]/', '', base64_encode($bytes));
+        }
+
+        return static::substr($string, 0, $length);
+    }
+
+    public static function randomString($length = 16, $characters = null)
+    {
+        $string = '';
+
+        $characters = $characters ?: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+        $max = static::length($characters) - 1;
+
+        while (($len = static::length($string)) < $length) {
+            $string .= $characters[random_int(0, $max)];
+        }
+
+        return $string;
+    }
+
+    public static function randomStringWithNumeric($length = 16)
+    {
+        return static::randomString($length, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789');
+    }
+
+    public static function randomStringWithSpecialCharacter($length = 16)
+    {
+        return static::randomString($length, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{};:,.<>/?');
+    }
 }

@@ -14,19 +14,23 @@ class Arr
      */
     public static function get($array, $key, $default = null)
     {
-        if (! static::accessible($array)) {
-            return $default;
-        }
-
         if (is_null($key)) {
             return $array;
         }
 
+        if (! static::accessible($array)) {
+            return $default;
+        }
+
         foreach (explode('.', $key) as $segment) {
-            if (static::accessible($array) && static::exists($array, $segment)) {
+            if (! static::exists($array, $segment)) {
+                return $default;
+            }
+
+            if (static::accessible($array[$segment])) {
                 $array = $array[$segment];
             } else {
-                return $default;
+                return $array[$segment];
             }
         }
 
@@ -39,7 +43,7 @@ class Arr
     public static function exists($array, $key): bool
     {
         foreach (explode('.', $key) as $segment) {
-            if (static::accessible($array) && ($array[$segment] ?? false)) {
+            if (isset($array[$segment])) {
                 $array = $array[$segment];
             } else {
                 return false;
