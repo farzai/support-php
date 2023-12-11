@@ -111,11 +111,6 @@ class Str
         return $string;
     }
 
-    public static function randomBytes($length = 16)
-    {
-        return random_bytes($length);
-    }
-
     public static function randomAscii($length = 16)
     {
         return static::substr(str_replace(['/', '+', '='], '', base64_encode(random_bytes($length))), 0, $length);

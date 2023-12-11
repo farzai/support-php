@@ -51,10 +51,6 @@ it('can randomize string', function () {
     expect(Str::random(10))->toHaveLength(10);
 });
 
-it('can random bytes', function () {
-    expect(Str::randomBytes(10))->toHaveLength(10);
-});
-
 it('can random ascii', function () {
     expect(Str::randomAscii(10))->toHaveLength(10);
 });
