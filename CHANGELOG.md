@@ -2,6 +2,18 @@
 
 All notable changes to `support` will be documented in this file.
 
+## 1.1.1 - 2023-12-11
+
+### What's Changed
+
+* Fix Array helper can't access numeric by @parsilver in https://github.com/farzai/support-php/pull/5
+
+### New Contributors
+
+* @parsilver made their first contribution in https://github.com/farzai/support-php/pull/5
+
+**Full Changelog**: https://github.com/farzai/support-php/compare/1.1.0...1.1.1
+
 ## 1.1.0 - 2023-12-08
 
 ### What's Changed
