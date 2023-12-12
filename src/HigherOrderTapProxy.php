@@ -25,11 +25,14 @@ class HigherOrderTapProxy
     /**
      * Dynamically pass method calls to the target.
      *
-     * @param  callable  $callback
+     * @param  string  $method
+     * @param  array  $parameters
      * @return mixed
      */
-    public function __invoke($callback)
+    public function __call($method, $parameters)
     {
-        return $callback($this->target);
+        $this->target->{$method}(...$parameters);
+
+        return $this->target;
     }
 }
