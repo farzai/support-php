@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "carbondate/carbon": "^1.33"
+        "nesbot/carbon": "^2.72"
     },
     "require-dev": {
         "pestphp/pest": "^1.20",
@@ -25,7 +25,10 @@
     "autoload": {
         "psr-4": {
             "Farzai\\Support\\": "src"
-        }
+        },
+        "files": [
+            "functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
