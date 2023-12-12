@@ -2,6 +2,15 @@
 
 All notable changes to `support` will be documented in this file.
 
+## 1.2.0 - 2023-12-12
+
+### What's Changed
+
+* Add simple helper functions by @parsilver in https://github.com/farzai/support-php/pull/6
+* Change Carbon base
+
+**Full Changelog**: https://github.com/farzai/support-php/compare/1.1.1...1.2.0
+
 ## 1.1.1 - 2023-12-11
 
 ### What's Changed
