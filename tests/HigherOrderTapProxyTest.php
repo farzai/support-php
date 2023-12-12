@@ -3,7 +3,8 @@
 use Farzai\Support\HigherOrderTapProxy;
 
 it('calls the method on the target', function () {
-    $target = new class {
+    $target = new class
+    {
         public $called = false;
 
         public function foo()
