@@ -2,6 +2,15 @@
 
 All notable changes to `support` will be documented in this file.
 
+## 1.3.0 - 2024-03-18
+
+### What's Changed
+
+* Bump aglipanci/laravel-pint-action from 2.3.0 to 2.3.1 by @dependabot in https://github.com/farzai/support-php/pull/7
+* Bump codecov/codecov-action from 3 to 4 by @dependabot in https://github.com/farzai/support-php/pull/8
+
+**Full Changelog**: https://github.com/farzai/support-php/compare/1.2.0...1.3.0
+
 ## 1.2.0 - 2023-12-12
 
 ### What's Changed
