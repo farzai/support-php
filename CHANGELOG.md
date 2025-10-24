@@ -2,6 +2,15 @@
 
 All notable changes to `support` will be documented in this file.
 
+## 1.4.0 - 2025-10-24
+
+### What's Changed
+
+* Refactor: Comprehensive code quality and maintainability improvements by @parsilver in https://github.com/farzai/support-php/pull/21
+* Perf: Optimize Arr::get and Arr::exists for performance improvement by @parsilver in https://github.com/farzai/support-php/pull/22
+
+**Full Changelog**: https://github.com/farzai/support-php/compare/1.3.0...1.4.0
+
 ## 1.3.0 - 2024-03-18
 
 ### What's Changed
