@@ -198,3 +198,89 @@ it('handles arrays with mixed nested structures', function () {
     expect(Arr::get($array, 'mixed.array'))->toBe(['a', 'b', 'c']);
     expect(Arr::get($array, 'mixed.scalar'))->toBe('value');
 });
+
+// Performance optimization tests
+it('handles simple keys without dots efficiently', function () {
+    $array = [
+        'simple_key' => 'simple_value',
+        'another' => 'test',
+    ];
+
+    // Test simple key retrieval (optimized path)
+    expect(Arr::get($array, 'simple_key'))->toBe('simple_value');
+    expect(Arr::get($array, 'nonexistent', 'default'))->toBe('default');
+    expect(Arr::exists($array, 'simple_key'))->toBeTrue();
+    expect(Arr::exists($array, 'nonexistent'))->toBeFalse();
+});
+
+it('handles integer keys without dots', function () {
+    $array = [
+        0 => 'zero',
+        1 => 'one',
+        123 => 'one-two-three',
+    ];
+
+    // Test integer key retrieval
+    expect(Arr::get($array, 0))->toBe('zero');
+    expect(Arr::get($array, 123))->toBe('one-two-three');
+    expect(Arr::get($array, 999, 'default'))->toBe('default');
+    expect(Arr::exists($array, 0))->toBeTrue();
+    expect(Arr::exists($array, 123))->toBeTrue();
+    expect(Arr::exists($array, 999))->toBeFalse();
+});
+
+it('handles ArrayAccess with null values correctly', function () {
+    $arrayObject = new ArrayObject([
+        'null_value' => null,
+        'false_value' => false,
+        'zero_value' => 0,
+        'empty_string' => '',
+    ]);
+
+    // Verify null values are retrievable (not treated as missing)
+    expect(Arr::get($arrayObject, 'null_value'))->toBeNull();
+    expect(Arr::get($arrayObject, 'false_value'))->toBeFalse();
+    expect(Arr::get($arrayObject, 'zero_value'))->toBe(0);
+    expect(Arr::get($arrayObject, 'empty_string'))->toBe('');
+
+    // Verify exists returns true for these values
+    expect(Arr::exists($arrayObject, 'null_value'))->toBeTrue();
+    expect(Arr::exists($arrayObject, 'false_value'))->toBeTrue();
+    expect(Arr::exists($arrayObject, 'zero_value'))->toBeTrue();
+    expect(Arr::exists($arrayObject, 'empty_string'))->toBeTrue();
+});
+
+it('handles nested ArrayAccess without performance issues', function () {
+    // Create nested ArrayObject structure
+    $deepObject = new ArrayObject([
+        'level1' => new ArrayObject([
+            'level2' => new ArrayObject([
+                'level3' => 'deep_value',
+            ]),
+        ]),
+    ]);
+
+    // This should use offsetExists instead of iterator_to_array
+    expect(Arr::get($deepObject, 'level1.level2.level3'))->toBe('deep_value');
+    expect(Arr::exists($deepObject, 'level1.level2.level3'))->toBeTrue();
+    expect(Arr::get($deepObject, 'level1.level2.nonexistent', 'default'))->toBe('default');
+});
+
+it('handles mixed array and ArrayAccess nesting', function () {
+    $mixed = new ArrayObject([
+        'array_inside' => [
+            'nested' => 'value1',
+        ],
+    ]);
+
+    $array = [
+        'object_inside' => new ArrayObject([
+            'nested' => 'value2',
+        ]),
+    ];
+
+    expect(Arr::get($mixed, 'array_inside.nested'))->toBe('value1');
+    expect(Arr::get($array, 'object_inside.nested'))->toBe('value2');
+    expect(Arr::exists($mixed, 'array_inside.nested'))->toBeTrue();
+    expect(Arr::exists($array, 'object_inside.nested'))->toBeTrue();
+});

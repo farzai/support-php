@@ -30,13 +30,35 @@ class Arr
             return $default;
         }
 
-        foreach (explode('.', (string) $key) as $segment) {
+        $keyString = (string) $key;
+
+        // Handle simple keys (no dots) directly
+        if (!str_contains($keyString, '.')) {
+            if (is_array($array)) {
+                return array_key_exists($keyString, $array) ? $array[$keyString] : $default;
+            }
+
+            // For ArrayAccess, use offsetExists to match array_key_exists behavior
+            // This correctly handles null values (unlike isset which returns false for null)
+            return $array->offsetExists($keyString) ? $array[$keyString] : $default;
+        }
+
+        // Handle dot notation
+        foreach (explode('.', $keyString) as $segment) {
             if (!static::accessible($array)) {
                 return $default;
             }
 
-            if (!array_key_exists($segment, is_array($array) ? $array : iterator_to_array($array))) {
-                return $default;
+            if (is_array($array)) {
+                if (!array_key_exists($segment, $array)) {
+                    return $default;
+                }
+            } else {
+                // For ArrayAccess, use offsetExists instead of iterator_to_array
+                // This is much more efficient and avoids converting the entire object to an array
+                if (!$array->offsetExists($segment)) {
+                    return $default;
+                }
             }
 
             $array = $array[$segment];
@@ -58,13 +80,37 @@ class Arr
      */
     public static function exists(array|ArrayAccess $array, string|int $key): bool
     {
-        foreach (explode('.', (string) $key) as $segment) {
+        if (!static::accessible($array)) {
+            return false;
+        }
+
+        $keyString = (string) $key;
+
+        // Handle simple keys (no dots) directly
+        if (!str_contains($keyString, '.')) {
+            if (is_array($array)) {
+                return array_key_exists($keyString, $array);
+            }
+
+            // For ArrayAccess, use offsetExists
+            return $array->offsetExists($keyString);
+        }
+
+        // Handle dot notation
+        foreach (explode('.', $keyString) as $segment) {
             if (!static::accessible($array)) {
                 return false;
             }
 
-            if (!array_key_exists($segment, is_array($array) ? $array : iterator_to_array($array))) {
-                return false;
+            if (is_array($array)) {
+                if (!array_key_exists($segment, $array)) {
+                    return false;
+                }
+            } else {
+                // For ArrayAccess, use offsetExists instead of iterator_to_array
+                if (!$array->offsetExists($segment)) {
+                    return false;
+                }
             }
 
             $array = $array[$segment];
