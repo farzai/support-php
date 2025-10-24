@@ -32,7 +32,6 @@ it('can check if date is in the future', function () {
     expect(Carbon::now()->subHour()->isFuture())->toBeFalse();
 });
 
-
 it('can check if date is between dates', function () {
     $today = Carbon::now();
     $yesterday = Carbon::yesterday();
