@@ -26,8 +26,3 @@ parameters:
     excludePaths:
         - vendor
         - tests
-
-    # Custom rules
-    ignoreErrors:
-        # Allow mixed types where necessary
-        - '#Parameter \#1 \$array of static method Farzai\\Support\\Arr::get\(\) expects array|ArrayAccess, mixed given#'

@@ -244,7 +244,7 @@ class Str
      * @param  int  $length  The desired length of the random string
      * @return string A random string of the specified length
      *
-     * @throws \Random\RandomException If random_bytes() fails
+     * @throws \Exception If random_bytes() fails
      *
      * @example
      * Str::random(16); // Returns: 'a3K7mN9pQ1xY2zB5'
@@ -255,7 +255,7 @@ class Str
 
         while (static::length($string) < $length) {
             $remaining = $length - static::length($string);
-            $bytes = random_bytes($remaining);
+            $bytes = random_bytes(max(1, $remaining));
             $string .= substr(str_replace(['/', '+', '='], '', base64_encode($bytes)), 0, $remaining);
         }
 
@@ -268,14 +268,14 @@ class Str
      * @param  int  $length  The desired length of the random string
      * @return string A random ASCII string of the specified length
      *
-     * @throws \Random\RandomException If random_bytes() fails
+     * @throws \Exception If random_bytes() fails
      *
      * @example
      * Str::randomAscii(16); // Returns: 'a3K7mN9pQ1xY2zB5'
      */
     public static function randomAscii(int $length = 16): string
     {
-        return static::substr(str_replace(['/', '+', '='], '', base64_encode(random_bytes($length))), 0, $length);
+        return static::substr(str_replace(['/', '+', '='], '', base64_encode(random_bytes(max(1, $length)))), 0, $length);
     }
 
     /**
@@ -284,7 +284,7 @@ class Str
      * @param  int  $length  The desired length of the random string
      * @return string A random numeric string of the specified length
      *
-     * @throws \Random\RandomException If random_int() fails
+     * @throws \Exception If random_int() fails
      *
      * @example
      * Str::randomNumeric(6); // Returns: '472891'
@@ -308,7 +308,7 @@ class Str
      * @param  int  $length  The desired length of the random string
      * @return string A random alphanumeric string of the specified length
      *
-     * @throws \Random\RandomException If random_int() fails
+     * @throws \Exception If random_int() fails
      *
      * @example
      * Str::randomAlphanumeric(12); // Returns: 'aB3xY9mK2nP7'
@@ -325,7 +325,7 @@ class Str
      * @param  string|null  $characters  The character set to use (defaults to alphanumeric)
      * @return string A random string of the specified length from the character set
      *
-     * @throws \Random\RandomException If random_int() fails
+     * @throws \Exception If random_int() fails
      *
      * @example
      * Str::randomString(8, 'ABCD123'); // Returns: 'A2B1C3D2'
@@ -350,7 +350,7 @@ class Str
      * @param  int  $length  The desired length of the random string
      * @return string A random alphanumeric string of the specified length
      *
-     * @throws \Random\RandomException If random_int() fails
+     * @throws \Exception If random_int() fails
      *
      * @example
      * Str::randomStringWithNumeric(10); // Returns: 'aB3xY9mK2n'
@@ -369,7 +369,7 @@ class Str
      * @param  int  $length  The desired length of the random string
      * @return string A random string with special characters
      *
-     * @throws \Random\RandomException If random_int() fails
+     * @throws \Exception If random_int() fails
      *
      * @example
      * Str::randomStringWithSpecialCharacter(12); // Returns: 'aB3!xY@9#mK2'
