@@ -1,0 +1,28 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    level: 8
+    paths:
+        - src
+        - functions.php
+
+    # Report all issues
+    reportUnmatchedIgnoredErrors: true
+
+    # Check all files, even without PHPDoc
+    checkGenericClassInNonGenericObjectType: true
+    checkMissingIterableValueType: false
+
+    # Additional checks
+    checkAlwaysTrueCheckTypeFunctionCall: true
+    checkAlwaysTrueInstanceof: true
+    checkAlwaysTrueStrictComparison: true
+    checkExplicitMixedMissingReturn: true
+    checkFunctionNameCase: true
+    checkInternalClassCaseSensitivity: true
+
+    # Ignore errors from vendor
+    excludePaths:
+        - vendor
+        - tests

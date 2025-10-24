@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use function Farzai\Support\class_basename;
 use function Farzai\Support\now;
 use function Farzai\Support\tap;

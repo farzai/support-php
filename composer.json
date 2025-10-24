@@ -18,9 +18,11 @@
         "nesbot/carbon": "^2.72.2|^3.0"
     },
     "require-dev": {
-        "pestphp/pest": "^1.20",
+        "pestphp/pest": "^1.20 || ^2.0",
         "laravel/pint": "^1.2",
-        "spatie/ray": "^1.28"
+        "spatie/ray": "^1.28",
+        "phpstan/phpstan": "^1.10",
+        "phpstan/extension-installer": "^1.3"
     },
     "autoload": {
         "psr-4": {
@@ -38,7 +40,14 @@
     "scripts": {
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint"
+        "format": "vendor/bin/pint",
+        "analyze": "vendor/bin/phpstan analyse",
+        "analyze-baseline": "vendor/bin/phpstan analyse --generate-baseline",
+        "check": [
+            "@format",
+            "@analyze",
+            "@test"
+        ]
     },
     "config": {
         "sort-packages": true,
