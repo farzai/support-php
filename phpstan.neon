@@ -1,0 +1,33 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    level: 8
+    paths:
+        - src
+        - functions.php
+
+    # Report all issues
+    reportUnmatchedIgnoredErrors: true
+
+    # Check all files, even without PHPDoc
+    checkGenericClassInNonGenericObjectType: true
+    checkMissingIterableValueType: false
+
+    # Additional checks
+    checkAlwaysTrueCheckTypeFunctionCall: true
+    checkAlwaysTrueInstanceof: true
+    checkAlwaysTrueStrictComparison: true
+    checkExplicitMixedMissingReturn: true
+    checkFunctionNameCase: true
+    checkInternalClassCaseSensitivity: true
+
+    # Ignore errors from vendor
+    excludePaths:
+        - vendor
+        - tests
+
+    # Custom rules
+    ignoreErrors:
+        # Allow mixed types where necessary
+        - '#Parameter \#1 \$array of static method Farzai\\Support\\Arr::get\(\) expects array|ArrayAccess, mixed given#'
